@@ -1,17 +1,21 @@
 # Network & Infrastructure Engineering Portfolio
 
-Hands-on infrastructure, virtualisation, Windows Server, networking, and troubleshooting labs built during enterprise training at **Vatanix Technologies, Trichy**.
+Hands-on infrastructure, virtualisation, Windows Server, networking, firewalls, and troubleshooting labs built during enterprise training at **Vatanix Technologies, Trichy**.
 
 **Georgin Shaju** | BTech CSE | Diploma in Network Engineering (NACTET)
 📧 georginparackal@gmail.com | 🔗 [LinkedIn](https://www.linkedin.com/in/georginshaju)
 
 ---
 
-## What This Repository Documents
+## What's Actually in Here
+
+Most of this training happened the way IT training usually does — simulators first, concepts second, hardware whenever it was available. This repo tries not to blur that distinction. Packet Tracer labs are labelled as Packet Tracer labs. Real hardware labs say which physical device was on the bench, and they say so because the failure modes are different — a simulator doesn't drop a NAT translation silently or leave a port err-disabled after a bad cable, and a couple of the labs below only exist because something like that actually happened.
 
 - VMware ESXi 8.0 deployment on a physical HPE ProLiant DL360 Gen9 enterprise server
 - Windows Server 2019 administration — Active Directory, DNS, DHCP, Group Policy, OU/User management
-- Cisco switching and routing — VLANs, SSH, Spanning Tree Protocol, Inter-VLAN Routing (SVI and Router-on-a-Stick), Static Routing
+- Cisco switching and routing in Packet Tracer — VLANs, SSH, Spanning Tree Protocol, Inter-VLAN Routing (SVI and Router-on-a-Stick), Static Routing
+- Cisco switching and routing on real hardware — a Cisco 1921 ISR router and Catalyst 3560-CX Layer 3 switch, console cable and all, covering NAT, SSH hardening, VLANs, DHCP, and an inter-VLAN ACL security policy
+- Firewall and UTM appliances on real hardware — Endian Firewall Community and a FortiGate 300D NGFW, covering zone-based segmentation, firewall policy, proxying, and web filtering
 - Structured incident troubleshooting — 5 detailed case studies plus a quick-reference guide spanning hardware, OS, networking, AD, and Cisco topics
 
 ---
@@ -24,6 +28,8 @@ This portfolio spans three separate environments, not one continuous setup:
 - **Native Windows Server machine** — Active Directory through Group Policy was first completed on a separate physical machine, booted directly into Windows Server (not virtualized).
 - **VirtualBox** — the same AD-through-GPO scope was repeated here for additional practice. This is the round documented with screenshots in this repository.
 
+Separately, the Cisco Real Hardware and firewall labs below were built on their own dedicated physical devices — a router, a switch, and two firewall appliances — outside of any of the three environments above.
+
 ---
 
 ## Projects
@@ -31,8 +37,11 @@ This portfolio spans three separate environments, not one continuous setup:
 | # | Project | Description | Status |
 |---|---|---|---|
 | 1 | [Windows Server & ESXi Lab](Windows_Server/) | 6 labs — ESXi setup · AD DS · DNS · DHCP · GPO · OU & User Management | ✅ Complete |
-| 2 | [Cisco Networking Labs](Cisco_Labs/) | 5 labs (in progress) — VLANs/SSH · STP · Inter-VLAN Routing (SVI + ROAS) · Static Routing | 🔄 In Progress |
-| 3 | [Troubleshooting Cases](Troubleshooting_Cases/) | 5 detailed incident case studies + quick-reference guide covering the full training journey | ✅ Complete |
+| 2 | [Cisco Networking Labs](Cisco_Labs/) | 5 labs (Packet Tracer) — VLANs/SSH · STP · Inter-VLAN Routing (SVI + ROAS) · Static Routing | ✅ Complete |
+| 3 | [Cisco Real Hardware](Cisco_Real_Hardware/) | 2 volumes — Cisco 1921 ISR router baseline, Catalyst 3560-CX VLANs/DHCP/ACL security | ✅ Complete |
+| 4 | [Endian Firewall Lab](Endian_Firewall_Lab/) | Real-hardware UTM firewall — RED/GREEN segmentation, rule ordering, proxy, web filtering | ✅ Complete |
+| 5 | [FortiGate 300D Hardware Lab](FortiGate-300D-Hardware-Lab/) | Real-hardware NGFW — GUI-based interfaces, static routing, firewall policy with NAT, DHCP | ✅ Complete |
+| 6 | [Troubleshooting Cases](Troubleshooting_Cases/) | 5 detailed incident case studies + quick-reference guide covering the full training journey | ✅ Complete |
 
 ---
 
@@ -49,17 +58,41 @@ This portfolio spans three separate environments, not one continuous setup:
 
 ---
 
-## Cisco Networking Labs
+## Cisco Networking Labs (Packet Tracer)
 
-| Lab | Topic | Key Skills Demonstrated | Status |
-|-----|-------|--------------------------|--------|
-| [01](Cisco_Labs/01_Basic_Switch_VLAN_SSH/) | Basic Switch Config, VLANs & SSH | Hostname · enable secret · VLANs · SVI · Telnet → SSH migration · RSA key | ✅ Complete |
-| [02](Cisco_Labs/02_Spanning_Tree_Protocol/) | Spanning Tree Protocol | Root Bridge election · port roles · BLK→FWD failover · PortFast · BPDU Guard | ✅ Complete |
-| [03](Cisco_Labs/03_Inter_VLAN_Routing_SVI/) | Inter-VLAN Routing — SVI | Layer-3 switch · SVI · trunking · `ip routing` · multi-switch routing | ✅ Complete |
-| [04](Cisco_Labs/04_Inter_VLAN_Routing_ROS/) | Inter-VLAN Routing — Router-on-a-Stick | Router subinterfaces · 802.1Q encapsulation · ROAS vs SVI | ✅ Complete |
-| [05](Cisco_Labs/05_Static_Routing/) | Static Routing | `ip route` · next-hop configuration · wrong subnet mask troubleshooting | 🔄 Standard routing complete, Default routing pending |
-| 06 | OSPF Single Area | OSPF process · DR/BDR election | 🔄 Planned |
-| 07 | Access Control Lists | Standard and Extended ACLs | 🔄 Planned |
+| Lab | Topic | Key Skills Demonstrated |
+|-----|-------|--------------------------|
+| [01](Cisco_Labs/01_Basic_Switch_VLAN_SSH/) | Basic Switch Config, VLANs & SSH | Hostname · enable secret · VLANs · SVI · Telnet → SSH migration · RSA key |
+| [02](Cisco_Labs/02_Spanning_Tree_Protocol/) | Spanning Tree Protocol | Root Bridge election · port roles · BLK→FWD failover · PortFast · BPDU Guard |
+| [03](Cisco_Labs/03_Inter_VLAN_Routing_SVI/) | Inter-VLAN Routing — SVI | Layer-3 switch · SVI · trunking · `ip routing` · multi-switch routing |
+| [04](Cisco_Labs/04_Inter_VLAN_Routing_ROS/) | Inter-VLAN Routing — Router-on-a-Stick | Router subinterfaces · 802.1Q encapsulation · ROAS vs SVI |
+| [05](Cisco_Labs/05_Static_Routing/) | Static Routing | `ip route` · next-hop configuration · wrong subnet mask troubleshooting |
+
+---
+
+## Cisco Real Hardware
+
+Packet Tracer is where the concepts above were learned. This is where they got tested against a physical Cisco 1921 ISR router and Catalyst 3560-CX Layer 3 switch — console cable plugged in, PuTTY open on COM4, real upstream internet connectivity that either worked or didn't.
+
+**[Vol 01 — Router Baseline](Cisco_Real_Hardware/Vol_01_Router_Baseline/)**
+Factory-reset 1921 built into a working internet gateway — WAN/LAN interfaces, NAT overload, SSH with a 2048-bit RSA key, Telnet, a live PC getting internet through it.
+
+**[Vol 02 — Enterprise Switch: VLANs, DHCP, ACL Security](Cisco_Real_Hardware/Vol_02_Enterprise_Switch/)**
+A Catalyst 3560-CX takes over everything internal — four VLANs, inter-VLAN routing via SVIs, DHCP per department, an extended ACL policy isolating them from each other, and Layer 2 hardening (port security, DHCP snooping, DAI, BPDU Guard, storm control). Two real build issues and a subtle ACL-testing pitfall are documented in full, including a [dedicated troubleshooting write-up](Cisco_Real_Hardware/Vol_02_Enterprise_Switch/ACL_Troubleshooting.md).
+
+![Full lab — router and switch stacked](Cisco_Real_Hardware/Vol_01_Router_Baseline/screenshots/hardware-full-lab-overview.jpg)
+
+---
+
+## Firewall & UTM — Real Hardware
+
+Two firewall appliances, two very different interaction models — one almost entirely CLI/console-driven at the point of recovery, the other entirely GUI-based from power-on to policy.
+
+**[Endian Firewall Community 3.3.2](Endian_Firewall_Lab/)**
+Installed on a repurposed PC (Intel i3, 8GB RAM, dual Intel NICs for RED/GREEN), configured as a gateway between a lab router and a client laptop. Covers the installer, a real GUI-unreachable snag recovered through the console Network Configuration Wizard, outbound firewall rule ordering, HTTP proxy, and web filtering with category blocking scoped to a specific client.
+
+**[FortiGate 300D](FortiGate-300D-Hardware-Lab/)**
+A next-gen firewall configured entirely through the browser — LAN/WAN interface roles, a default static route, a firewall policy bundling access control and NAT together, and DHCP switched on for the internal segment. Written up as a direct comparison to the router-based CLI work above: same underlying concepts, different interface.
 
 ---
 
@@ -122,6 +155,14 @@ common scenarios from hardware fundamentals through Cisco routing.
 
 ---
 
+### Real Hardware — ACL Isolation Verified on the Catalyst 3560-CX
+
+> Inter-VLAN ACL policy tested from real end-hosts across every VLAN pair
+
+![ACL Isolation Verified](Cisco_Real_Hardware/Vol_02_Enterprise_Switch/screenshots/switch-acl-isolation-verified.png)
+
+---
+
 ## Skills
 
 | Category | Tools & Technologies |
@@ -129,10 +170,12 @@ common scenarios from hardware fundamentals through Cisco routing.
 | **Virtualisation** | VMware ESXi 8.0, vSphere Host Client, VM deployment |
 | **Server Hardware** | HPE ProLiant DL360 Gen9, iLO 4, hardware RAID |
 | **Windows Server** | Windows Server 2019, AD DS, DNS, DHCP, GPO, Domain Controller |
-| **Cisco Switching & Routing** | VLANs, SVI, SSH, STP, Router-on-a-Stick, Static Routing |
+| **Cisco Switching & Routing** | VLANs, SVI, SSH, STP, Router-on-a-Stick, Static Routing, Extended ACLs |
+| **Cisco Real Hardware** | Cisco 1921 ISR, Catalyst 3560-CX, NAT overload, DHCP snooping, DAI, port security |
+| **Firewalls / UTM** | Endian Firewall Community, FortiGate/FortiOS, zone-based segmentation, HTTP proxy, web filtering |
 | **Networking Fundamentals** | TCP/IP, OSI Model, Subnetting, Ethernet, Structured Cabling |
-| **Troubleshooting** | OSI layer-by-layer methodology, Windows Server, Cisco CLI |
-| **Tools** | Cisco Packet Tracer, VirtualBox, draw.io, PuTTY |
+| **Troubleshooting** | OSI layer-by-layer methodology, Windows Server, Cisco CLI, firewall GUIs |
+| **Tools** | Cisco Packet Tracer, VirtualBox, PuTTY, draw.io |
 
 ---
 
@@ -147,6 +190,9 @@ common scenarios from hardware fundamentals through Cisco routing.
 - STP runs automatically on Cisco switches — always manually set the Root Bridge in production rather than relying on MAC address election
 - PortFast and BPDU Guard together let access ports skip STP delay safely, while still protecting against unauthorized switch connections
 - Group Policy requires `gpupdate /force` and a restart to apply Computer Configuration settings reliably
+- Adding a new subnet behind a NAT router means the NAT ACL needs updating too — nothing warns you when it's incomplete, and the symptom (DHCP working, no internet) looks identical to several other faults
+- An extended ACL's implicit `deny ip any any` is invisible but always there — forgetting a trailing `permit` silently kills traffic that was never meant to be blocked
+- CLI and GUI firewalls are the same concepts wearing different skins — interface roles, static routes, and policy/NAT bundling transfer directly from router CLI work to a browser-based NGFW
 
 ---
 
