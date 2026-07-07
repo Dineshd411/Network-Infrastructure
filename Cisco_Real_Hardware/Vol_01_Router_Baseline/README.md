@@ -185,8 +185,6 @@ The output should show `S* 0.0.0.0/0` — the default route marked as a candidat
 default. `Gateway of last resort is 10.10.11.1 to network 0.0.0.0` confirms it's
 active.
 
-![Routing table — show ip route via SSH session](screenshots/router-ssh-from-vlan-pc.png)
-
 **Connectivity — from the router itself:**
 ```
 ping 10.10.11.1     ! Next hop (upstream router)
